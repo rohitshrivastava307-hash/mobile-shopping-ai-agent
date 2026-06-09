@@ -1,16 +1,23 @@
-const express=require('express')
-const cors=require('cors')
-const app=express()
-app.use(cors())
-app.use(express.json())
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const connectDB = require('../backend/config/db');
 
-app.get('/',(req,res)=>{
-    res.send('Mobile AI Agent Working')
-})
+dotenv.config();
 
+connectDB();
 
-const PORT = 3000;
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.send('Mobile AI Agent API Running');
+});
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
