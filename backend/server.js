@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const phoneRoutes = require('./routes/phoneRoutes');
 const connectDB = require('../backend/config/db');
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
+app.use('/api/phones', phoneRoutes);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
