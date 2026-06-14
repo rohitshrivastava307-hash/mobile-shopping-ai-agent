@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const phoneRoutes = require('./routes/phoneRoutes');
+dotenv.config();
+const phoneRoutes = require('./routes/phoneroutes');
+const chatRoutes = require('./routes/chatroutes');
 const connectDB = require('../backend/config/db');
 
-dotenv.config();
+
 
 connectDB();
 
@@ -20,6 +22,7 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.use('/api/phones', phoneRoutes);
+app.use('/api/chat', chatRoutes);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
