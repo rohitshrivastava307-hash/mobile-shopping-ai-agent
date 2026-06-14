@@ -3,13 +3,34 @@ const Phone = require('../models/phones');
 
 const chat = async (req, res) => {
   try {
-
     const { message } = req.body;
 
-    const result = await askGemini(message);
+    // STEP 1: Extract Filters
+    const extractionPrompt = `
+Return ONLY a JSON object.
 
-    const filters = JSON.parse(result);
+No explanations.
+No markdown.
+No code blocks.
 
+Example:
+{"brand":"Samsung","maxPrice":30000}
+
+Query:
+${message}
+`;
+
+    const result = await askGemini(extractionPrompt);
+
+    const jsonMatch = result.match(/\{[\s\S]*\}/);
+
+    if (!jsonMatch) {
+      throw new Error("No JSON found in Gemini response");
+    }
+
+    const filters = JSON.parse(jsonMatch[0]);
+
+    // STEP 2: Build Mongo Query
     const query = {};
 
     if (filters.brand) {
@@ -22,10 +43,25 @@ const chat = async (req, res) => {
       };
     }
 
+    // STEP 3: Search Phones
     const phones = await Phone.find(query);
+
+    // STEP 4: Generate Recommendation
+    const recommendationPrompt = `
+User Query:
+${message}
+
+Available Phones:
+${JSON.stringify(phones)}
+
+Recommend the best phone in 3 lines.
+`;
+
+    const recommendation = await askGemini(recommendationPrompt);
 
     res.json({
       filters,
+      recommendation,
       phones
     });
 
@@ -37,4 +73,5 @@ const chat = async (req, res) => {
     });
   }
 };
+
 module.exports = { chat };
