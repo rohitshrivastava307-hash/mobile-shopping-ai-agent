@@ -1,0 +1,25 @@
+<div class="container">
+
+  <h2>Mobile AI Agent</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="message"
+    placeholder="Ask for a phone..."
+  >
+
+  <button (click)="sendMessage()">
+    Send
+  </button>
+
+  <hr>
+
+  <div *ngIf="response">
+
+    <h3>Recommendation</h3>
+
+    <p>{{ response.recommendation }}</p>
+
+  </div>
+
+</div>
