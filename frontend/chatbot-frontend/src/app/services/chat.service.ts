@@ -10,7 +10,7 @@ export class ChatService {
 
    private apiUrl = 'http://localhost:3000/api/chat';
   http=inject(HttpClient)
-  sendMessage(msg:any){
-    return this.http.post(this.apiUrl,{msg})
+  sendMessage(message:any){
+    return this.http.post(this.apiUrl,{message})
   }
 }

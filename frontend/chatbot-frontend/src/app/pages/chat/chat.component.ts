@@ -18,13 +18,14 @@ export class ChatComponent {
   sendMessage() {
 
     this.chatService.sendMessage(this.message)
-      .subscribe((data) => {
+     .subscribe((data:any) => {
 
-        console.log(data);
+  console.log("FULL RESPONSE:", data);
+  console.log("PHONES:", data.phones);
 
-        this.response = data;
+  this.response = data;
 
-      });
+});
 
   }
 

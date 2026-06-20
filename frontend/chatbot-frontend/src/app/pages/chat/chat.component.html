@@ -14,6 +14,26 @@
 
   <hr>
 
+  <div *ngIf="response?.phones?.length">
+
+  <h3>Phones</h3>
+
+  <div *ngFor="let phone of response.phones">
+
+    <h4>{{ phone.name }}</h4>
+
+    <p>Brand: {{ phone.brand }}</p>
+
+    <p>Price: ₹{{ phone.price }}</p>
+
+    <p>Rating: ⭐ {{ phone.rating }}</p>
+
+    <hr>
+
+  </div>
+
+</div>
+
   <div *ngIf="response">
 
     <h3>Recommendation</h3>
@@ -21,5 +41,7 @@
     <p>{{ response.recommendation }}</p>
 
   </div>
+
+
 
 </div>
