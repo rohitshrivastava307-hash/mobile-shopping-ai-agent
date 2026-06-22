@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2>Mobile AI Agent</h2>
+  <h2>🤖 Mobile AI Agent</h2>
 
   <input
     type="text"
@@ -11,37 +11,50 @@
   <button (click)="sendMessage()">
     Send
   </button>
-
-  <hr>
-
-  <div *ngIf="response?.phones?.length">
-
-  <h3>Phones</h3>
-
-  <div *ngFor="let phone of response.phones">
-
-    <h4>{{ phone.name }}</h4>
-
-    <p>Brand: {{ phone.brand }}</p>
-
-    <p>Price: ₹{{ phone.price }}</p>
-
-    <p>Rating: ⭐ {{ phone.rating }}</p>
-
-    <hr>
-
-  </div>
-
+  <div *ngIf="loading">
+  <h3>🔍 Searching phones...</h3>
 </div>
 
   <div *ngIf="response">
 
-    <h3>Recommendation</h3>
+    <div class="recommendation">
+      <h3>Recommendation</h3>
+      <p>{{ response.recommendation }}</p>
+    </div>
 
-    <p>{{ response.recommendation }}</p>
+    <div
+  *ngIf="response && response.phones && response.phones.length === 0">
+
+  <h3>No phones found</h3>
+
+  <p>Try increasing your budget or changing brand.</p>
+
+</div>
+
+    <div class="phone-container">
+
+      <div
+        class="phone-card"
+        *ngFor="let phone of response.phones">
+
+        <h3>{{ phone.name }}</h3>
+
+        <p><strong>Brand:</strong> {{ phone.brand }}</p>
+
+        <p><strong>Price:</strong> ₹{{ phone.price }}</p>
+
+        <p><strong>Rating:</strong> ⭐ {{ phone.rating }}</p>
+
+        <p><strong>Camera:</strong> {{ phone.camera }}</p>
+
+        <p><strong>Battery:</strong> {{ phone.battery }}</p>
+
+        <p><strong>Processor:</strong> {{ phone.processor }}</p>
+
+      </div>
+
+    </div>
 
   </div>
-
-
 
 </div>

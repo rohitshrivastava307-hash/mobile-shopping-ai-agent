@@ -10,23 +10,31 @@ export class ChatComponent {
 
 
     message: string = '';
+    loading = false;
 
   response: any;
 
   constructor(private chatService: ChatService) {}
 
-  sendMessage() {
+ sendMessage() {
 
-    this.chatService.sendMessage(this.message)
-     .subscribe((data:any) => {
+  
+  this.response = null;
+  this.loading = true;  
 
-  console.log("FULL RESPONSE:", data);
-  console.log("PHONES:", data.phones);
+  this.chatService.sendMessage(this.message)
+    .subscribe((data) => {
 
-  this.response = data;
+      this.response = data;
+      this.loading = false;
 
-});
+    }, (error) => {
 
-  }
+      console.error(error);
+      this.loading = false;
+
+    });
+
+}
 
 }
