@@ -6,11 +6,14 @@
     type="text"
     [(ngModel)]="message"
     placeholder="Ask for a phone..."
+    (keyup.enter)="sendMessage()"
   >
 
-  <button (click)="sendMessage()">
-    Send
-  </button>
+<button
+  (click)="sendMessage()"
+  [disabled]="loading">
+  {{ loading ? 'Searching...' : 'Send' }}
+</button>
   <div *ngIf="loading">
   <h3>🔍 Searching phones...</h3>
 </div>

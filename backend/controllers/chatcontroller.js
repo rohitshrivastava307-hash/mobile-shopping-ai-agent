@@ -34,7 +34,10 @@ ${message}
     const query = {};
 
     if (filters.brand) {
-      query.brand = filters.brand;
+    query.brand = new RegExp(
+  `^${filters.brand}$`,
+  'i'
+);
     }
 
     if (filters.maxPrice) {

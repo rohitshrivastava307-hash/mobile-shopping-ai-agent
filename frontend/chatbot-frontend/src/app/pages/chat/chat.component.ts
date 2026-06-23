@@ -17,7 +17,9 @@ export class ChatComponent {
   constructor(private chatService: ChatService) {}
 
  sendMessage() {
-
+if (!this.message.trim()) {
+  return;
+}
   
   this.response = null;
   this.loading = true;  
