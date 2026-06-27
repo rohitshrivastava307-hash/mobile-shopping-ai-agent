@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getAllPhones, searchPhones}=require('../controllers/phonecontroller');
+const {getAllPhones, searchPhones}=require('../controllers/phoneController');
 router.get('/search', searchPhones);
 router.get('/', getAllPhones);
 router.get('/gemini-test', async (req, res) => {
